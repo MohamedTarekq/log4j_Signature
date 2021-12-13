@@ -6,7 +6,7 @@ Run This command after installing [jaeles](https://github.com/jaeles-project/jae
 ```javascript
 jaeles scan -v -s jndi.yaml -p 'dest=XXxxx.burpcollaborator.net -u http://example.com
 ```
-You can use it with [subfinder] and [httpx] 
+You can use it with [subfinder](https://github.com/projectdiscovery/subfinder) and [httpx](https://github.com/projectdiscovery/httpx)
 ```
 subfinder -dL domains.txt -silent | httpx | jaeles scan -v -s jndi.yaml -p 'dest=XXxxx.burpcollaborator.net'
 ```
